@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// WIN SCRIPT CLASS
 public class WinScript : MonoBehaviour {
 
 	// PRIVATE INSTANCE VARIABLES
@@ -15,7 +16,7 @@ public class WinScript : MonoBehaviour {
 		}
 		else
 		{
-			Debug.Log("cctv Controller Class Cannot find 'GameController' script");
+			Debug.Log("Win Script Class Cannot find 'GameController' script");
 		}
 	}
 

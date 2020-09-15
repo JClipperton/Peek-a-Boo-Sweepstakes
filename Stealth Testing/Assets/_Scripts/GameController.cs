@@ -13,14 +13,22 @@ public class GameController : MonoBehaviour {
 	public int strikes;
 
 	public Text scoreText;
-	public int score;
+	//public int score;
 
-	public Image lightIM;
+	public Image seenDark;
+	public Image seenLight;
 	public float lightLevel;
 
 	public Text whatIsText;
 
 	public bool over;
+
+	public int loiteringPenalty;
+	public float loiteringInterval;
+
+    public AudioSource loseMoneySound;
+
+	public PersistantObject scoreHandler;
 
 	void Awake ()
 	{
@@ -36,15 +44,18 @@ public class GameController : MonoBehaviour {
 		UpdateScore();
 		UpdateLightImage();
 		UpdateWhatIs("");
+
+		AddScore(-loiteringPenalty);
+		StartCoroutine(LoiteringLoop());
 	}
 
 	void Update()
 	{
 		if(over)
 		{
-			if(Input.GetKeyDown(KeyCode.R))
+			if(Input.GetKeyDown(KeyCode.R)) // restarts level
 			{
-				Application.LoadLevel(Application.loadedLevel);
+				Application.LoadLevel(0);
 			}
 		}
 	}
@@ -54,13 +65,14 @@ public class GameController : MonoBehaviour {
 	{
 		strikes += addStrikes;
         GetComponent<AudioSource>().Play();
+        this.AddScore(-50000);
 		UpdateStrikes();
 	}
 	
 	// updates the Strikes display
 	void UpdateStrikes()
 	{
-		strikesText.text = "Strikes: ";
+		strikesText.text = "STRIKES: ";
 		for (int i = 0; i < strikes; i++)
 		{
 			strikesText.text += "X";	
@@ -81,12 +93,27 @@ public class GameController : MonoBehaviour {
 	}
 
 	// disable all GameObjects with the tag "Strike" + number
-	void StrikeObjectDisable(int intput)
+	void StrikeObjectDisable(int input)
 	{
-		GameObject[] gO = GameObject.FindGameObjectsWithTag("Strike" + intput);
-		for (int i = 0; i < gO.Length; i++)
+		GameObject[] objectsToStrike = GameObject.FindGameObjectsWithTag("Strike" + input);
+		for (int i = 0; i < objectsToStrike.Length; i++)
 		{
-			gO[i].SetActive(false);	
+			objectsToStrike[i].SendMessage("StartMoveToEnd");	
+		}
+	}
+
+	// enable all GameObjects with the tag "Strike#" 
+	void StrikeObjectEnable()
+	{
+		for(int j = 1; j <= 2; j++)
+		{
+			GameObject[] objectsToStrike = GameObject.FindGameObjectsWithTag("Strike" + j);
+			Debug.Log("j = " + j);
+			Debug.Log(objectsToStrike.Length);
+			for (int i = 0; i < objectsToStrike.Length; i++)
+			{
+				objectsToStrike[i].SendMessage("StartMoveToStart");
+			}
 		}
 	}
 	
@@ -101,14 +128,22 @@ public class GameController : MonoBehaviour {
 	// adds points to score
 	public void AddScore(int addScore)
 	{
-		score += addScore;
+        if (addScore < 0)
+        {
+            loseMoneySound.Play();
+        }
+		scoreHandler.Score += addScore;
 		UpdateScore();
+		if (scoreHandler.Score <= 0)
+		{
+			GameOver();
+		}
 	}
 	
 	// updates the score display
 	void UpdateScore()
 	{        
-		scoreText.text = score.ToString("C");
+		scoreText.text = scoreHandler.Score.ToString("C");
 	}
 
 	// updates the current light level
@@ -124,11 +159,13 @@ public class GameController : MonoBehaviour {
 		if(lightLevel > 0)
 		{
 			// lightIM.color = new Color(lightLevel, lightLevel, lightLevel, 1);
-            lightIM.color = Color.white;
+			seenLight.enabled = true;
+			seenDark.enabled = false;
 		}
 		else
 		{
-			lightIM.color = Color.black;
+			seenLight.enabled = false;
+			seenDark.enabled = true;
 		}
 	}
 	
@@ -138,12 +175,39 @@ public class GameController : MonoBehaviour {
 		whatIsText.text = str;
 	}
 
+    // Resolves level win state
 	public void Win()
 	{
-		if(!over)
+        if (Application.loadedLevel == 1) // if first level is active...
+        {
+            Application.LoadLevel(2); // load next level
+        }
+		else if (Application.loadedLevel == 2)
+		{
+			Application.LoadLevel(3);
+		}
+		else if(!over)
 		{
 			playTextObjects.SetActive(false);
 			winTextObjects.SetActive(true);
+		}
+	}
+
+	public void Resetstrikes()
+	{
+		strikes = 0;
+		UpdateStrikes();
+		AddScore(-10000);
+		StrikeObjectEnable();
+	}
+
+	//
+	IEnumerator LoiteringLoop()
+	{
+		while(true)
+		{
+			AddScore(loiteringPenalty);
+			yield return new WaitForSeconds(loiteringInterval);
 		}
 	}
 }

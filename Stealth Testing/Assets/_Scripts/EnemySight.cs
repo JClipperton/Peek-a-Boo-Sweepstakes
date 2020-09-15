@@ -66,6 +66,7 @@ public class EnemySight : MonoBehaviour {
 		}
 	}
 	
+    /*
 	void OnTriggerExit(Collider other)
 	{
 		if(other.gameObject.tag == "Player")
@@ -73,6 +74,7 @@ public class EnemySight : MonoBehaviour {
 			// Player.'Number of people looking at look'--;
 		}
 	}
+     * */
 
 	void disableSight()
 	{

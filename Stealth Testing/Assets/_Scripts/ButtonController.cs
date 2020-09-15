@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 // BUTTON CONTROLLER CLASS
 public class ButtonController : MonoBehaviour {
 	// PUBLIC INSTANCE VARIABLES
-	public enum OnPush { OPEN, CLOSE, SWAP, ErrorTest }
+	public enum OnPush { OPEN, CLOSE, SWAP, Startmoving, Stopmoving, RESETSTRIKES, ErrorTest }
 	public OnPush onPush;
 	public Transform target;
+
+    public GameController gameController;
 
 	void Update()
 	{
@@ -18,6 +20,7 @@ public class ButtonController : MonoBehaviour {
 	public void Push()
 	{
 		target.SendMessage(FirstCharToUpper(onPush.ToString()));
+        gameController.AddScore(-5000);
 	}
 
 	

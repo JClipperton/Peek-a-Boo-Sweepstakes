@@ -34,7 +34,7 @@ public class PickUpController : MonoBehaviour {
 		
 		if(Physics.Raycast(transform.position, transform.forward, out hit, pickUpRange, layerMask))
 		{
-			Debug.Log(hit.collider.gameObject.tag);
+			//Debug.Log(hit.collider.gameObject.tag);
 
 			if(hit.collider.gameObject.tag == "PickUp")
 			{

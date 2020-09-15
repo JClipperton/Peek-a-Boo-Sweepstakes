@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// ENEMY AI CLASS
 public class EnemyAI : MonoBehaviour
 {
 	public float patrolSpeed = 2f;                          // The nav mesh agent's speed when patrolling.
@@ -11,7 +12,6 @@ public class EnemyAI : MonoBehaviour
 	private NavMeshAgent _nav;                               // Reference to the nav mesh agent.
 	private float _patrolTimer;                              // A timer for the patrolWaitTime.
 	private int _wayPointIndex;                              // A counter for the way point array.
-	
 	
 	void Awake ()
 	{
@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour
 	void Patrolling ()
 	{
 		// Set an appropriate speed for the NavMeshAgent.
-		_nav.speed = patrolSpeed;
+		this._nav.speed = patrolSpeed;
 		
 		// If near the next waypoint or there is no destination...
 		if(this._nav.remainingDistance < _nav.stoppingDistance)

@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class LavaScript : MonoBehaviour {
+    public Transform spawnpoint;
+    public GameController gameController;
 
 	void OnTriggerEnter(Collider other)
 	{
-		Debug.Log(other.gameObject.tag);
 		if(other.gameObject.tag == "Player")
 		{
-			Application.LoadLevel("Level1");
+            other.transform.position = spawnpoint.transform.position; // resets player position
+            gameController.AddScore(-150000);
 		}
 	}
 }
