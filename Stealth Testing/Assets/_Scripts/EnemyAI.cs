@@ -9,13 +9,13 @@ public class EnemyAI : MonoBehaviour
 	public float patrolWaitTime = 1f;                       // The amount of time to wait when the patrol way point is reached.
 	public Transform[] patrolWayPoints;                     // An array of transforms for the patrol route.
 
-	private NavMeshAgent _nav;                               // Reference to the nav mesh agent.
+	private UnityEngine.AI.NavMeshAgent _nav;                               // Reference to the nav mesh agent.
 	private float _patrolTimer;                              // A timer for the patrolWaitTime.
 	private int _wayPointIndex;                              // A counter for the way point array.
 	
 	void Awake ()
 	{
-		this._nav = GetComponent<NavMeshAgent>();
+		this._nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
 	}
 	
 	

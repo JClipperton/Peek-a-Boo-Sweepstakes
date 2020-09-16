@@ -81,7 +81,7 @@ public class EnemySight : MonoBehaviour {
 		gameObject.GetComponent<MeshCollider>().enabled = false;
 		gameObject.GetComponent<MeshRenderer>().enabled = false;
 		gameObject.GetComponentInParent<EnemyAI>().enabled = false;
-		gameObject.GetComponentInParent<NavMeshAgent>().enabled = false;
+		gameObject.GetComponentInParent<UnityEngine.AI.NavMeshAgent>().enabled = false;
 	}
 
 	void enableSight()
@@ -89,6 +89,6 @@ public class EnemySight : MonoBehaviour {
 		gameObject.GetComponent<MeshCollider>().enabled = true;
 		gameObject.GetComponent<MeshRenderer>().enabled = true;
 		gameObject.GetComponentInParent<EnemyAI>().enabled = true;
-		gameObject.GetComponentInParent<NavMeshAgent>().enabled = true;
+		gameObject.GetComponentInParent<UnityEngine.AI.NavMeshAgent>().enabled = true;
 	}
 }
