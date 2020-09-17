@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // GAME CONTROLLER CLASS
 public class GameController : MonoBehaviour {
@@ -55,7 +56,7 @@ public class GameController : MonoBehaviour {
 		{
 			if(Input.GetKeyDown(KeyCode.R)) // restarts level
 			{
-				Application.LoadLevel(0);
+				SceneManager.LoadScene(0);
 			}
 		}
 	}
@@ -178,13 +179,13 @@ public class GameController : MonoBehaviour {
     // Resolves level win state
 	public void Win()
 	{
-        if (Application.loadedLevel == 1) // if first level is active...
+		if (SceneManager.GetActiveScene().buildIndex == 1) // if first level is active...
         {
-            Application.LoadLevel(2); // load next level
+			SceneManager.LoadScene(2); // load next level
         }
-		else if (Application.loadedLevel == 2)
+		else if (SceneManager.GetActiveScene().buildIndex == 2)
 		{
-			Application.LoadLevel(3);
+			SceneManager.LoadScene(3);
 		}
 		else if(!over)
 		{

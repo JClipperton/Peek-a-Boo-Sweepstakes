@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class menuScript : MonoBehaviour {
 
@@ -23,7 +24,7 @@ public class menuScript : MonoBehaviour {
     public void LoadScene(int level)
     {
         loadingImage.SetActive(true);
-        Application.LoadLevel(level);
+		SceneManager.LoadScene(level);
     }
 
 	public void Instuctions()
