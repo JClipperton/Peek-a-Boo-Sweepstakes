@@ -25,8 +25,7 @@ public class ButtonController : MonoBehaviour {
 
 	
 	// returns the input string with the only the first letter of the input in upper case
-	public string FirstCharToUpper(string input)
-	{
+	public string FirstCharToUpper(string input) {
 		return input.Substring(0, 1).ToUpper() + input.Substring(1).ToLower();
 	}
 }
