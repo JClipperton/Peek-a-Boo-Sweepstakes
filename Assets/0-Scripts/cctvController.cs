@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class cctvController : MonoBehaviour {
+public class CctvController : MonoBehaviour {
     #region Variables and Properties
     [SerializeField] private int strikeAdd = 1;
     [SerializeField] private GameController gameController;
