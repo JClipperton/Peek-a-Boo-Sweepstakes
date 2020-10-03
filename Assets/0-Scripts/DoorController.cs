@@ -1,40 +1,39 @@
 ﻿using UnityEngine;
 
-// DOOR CONTROLLER CLASS
 public class DoorController : MonoBehaviour {
-    // PUBLIC INSTANCE VARIABLES
-    public bool open;
+    #region Variables and Properties
+    [SerializeField] private bool doorStart = false;
+    [SerializeField] private Animator animator = default;
 
-    // PRIVATE INSTANCE VARIABLES
-    private Animator _anim;
+    private bool open;
+    #endregion Variables and Properties
 
     void Awake() {
-        this._anim = GetComponent<Animator>();
+        open = doorStart;
+        animator.SetBool("Open", open);
     }
 
-    void Start() {
-        this._anim.SetBool("Open", open);
-    }
-
-    // Opens the door if it's closed
+    /// <summary>
+    /// Opens the door
+    /// </summary>
     public void Open() {
-        if (!open) {
-            open = true;
-            this._anim.SetBool("Open", open);
-        }
+        open = true;
+        animator.SetBool("Open", open);
     }
 
-    // Close the door if it's open
+    /// <summary>
+    /// Close the door
+    /// </summary>
     public void Close() {
-        if (open) {
-            open = false;
-            this._anim.SetBool("Open", open);
-        }
+        open = false;
+        animator.SetBool("Open", open);
     }
 
-    // Swaps the state of the door
+    /// <summary>
+    /// Swaps the state of the door
+    /// </summary>
     public void Swap() {
         open = !open;
-        this._anim.SetBool("Open", open);
+        animator.SetBool("Open", open);
     }
 }
