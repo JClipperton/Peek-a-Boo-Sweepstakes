@@ -73,7 +73,7 @@ public class PlatformController : MonoBehaviour {
         Debug.Log("I'm Staying!!!!");
     }
 
-    void Startmoving() {
+    public void Startmoving() {
         move = true;
 
         if (this._fracOfJourney >= 1) {
@@ -88,7 +88,7 @@ public class PlatformController : MonoBehaviour {
 
     }
 
-    void Stopmoving() {
+    public void Stopmoving() {
         move = false;
     }
 
